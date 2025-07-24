@@ -30,6 +30,12 @@ export const appRoutes: Routes = [
     },
   },
   {
+    path: 'learnings',
+    pathMatch: 'full',
+    loadComponent: () =>
+      import('./feature/learnings/learnings.component').then((m) => m.LearningsComponent),
+  },
+  {
     path: '',
     component: AppComponent,
     children: [
