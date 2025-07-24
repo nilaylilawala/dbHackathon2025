@@ -39,10 +39,17 @@ export const appRoutes: Routes = [
             path: 'finance-guru',
             pathMatch: 'full',
             loadComponent: () =>
-              import('./feature/finance-guru/finance-guru.component').then((m) => m.FinanceGuruComponent),
+              import('./feature/finance-guru/finance-guru.component').then(
+                (m) => m.FinanceGuruComponent
+              ),
+          },
+          {
+            path: 'learnings',
+            pathMatch: 'full',
+            loadComponent: () =>
+              import('./feature/learnings/learnings.component').then((m) => m.LearningsComponent),
           },
         ],
-        
       },
     ],
   },

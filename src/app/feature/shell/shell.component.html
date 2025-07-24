@@ -20,11 +20,14 @@
     </div>
   </clr-header>
   <div class="content-container">
-    <main class="content-area">
-      <router-outlet></router-outlet>
-    </main>
-    <clr-vertical-nav [clr-nav-level]="1">
-      <a clrVerticalNavLink routerLink="./finance-guru" routerLinkActive="active">Finance Guru</a>
+    <clr-vertical-nav [clrVerticalNavCollapsible]="true" [clrVerticalNavCollapsed]="false">
+      <a clrVerticalNavLink routerLink="./finance-guru" routerLinkActive="active"> Finance Guru </a>
+      <a clrVerticalNavLink routerLink="./learnings" routerLinkActive="active">
+        Learning and Earning
+      </a>
     </clr-vertical-nav>
+    <div class="content-area">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </clr-main-container>
