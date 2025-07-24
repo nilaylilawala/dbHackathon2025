@@ -16,10 +16,31 @@ export const appRoutes: Routes = [
     loadComponent: () => import('./feature/home/home.component').then((m) => m.HomeComponent),
   },
   {
-    path: 'loan-guru',
-    pathMatch: 'full',
+    path: 'ai-finance-guru',
     loadComponent: () =>
-      import('./feature/loan-guru/loan-guru.component').then((m) => m.LoanGuruComponent),
+      import('./feature/ai-finance-guru/ai-finance-guru.component').then((m) => m.AiFinanceGuruComponent),
+    children: [
+      {
+        path: '',
+        redirectTo: 'loan-guru',
+        pathMatch: 'full'
+      },
+      {
+        path: 'loan-guru',
+        loadComponent: () =>
+          import('./feature/loan-guru/loan-guru.component').then((m) => m.LoanGuruComponent),
+      },
+      {
+        path: 'insurance-guru',
+        loadComponent: () =>
+          import('./feature/insurance-guru/insurance-guru.component').then((m) => m.InsuranceGuruComponent),
+      },
+      {
+        path: 'investment-guru',
+        loadComponent: () =>
+          import('./feature/investment-guru/investment-guru.component').then((m) => m.InvestmentGuruComponent),
+      }
+    ]
   },
   {
     path: 'login',
