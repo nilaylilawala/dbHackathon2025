@@ -5,7 +5,6 @@ import {
   redirectLoggedInTo,
   redirectUnauthorizedTo,
 } from '@angular/fire/compat/auth-guard';
-import { AuthGuard } from '@angular/fire/auth-guard';
 
 const redirectUnauthorizedPipeGenerator: AuthPipeGenerator = () =>
   redirectUnauthorizedTo(['/login']);
@@ -36,7 +35,7 @@ export const appRoutes: Routes = [
         },
         children: [
           {
-            path: 'finance-guru',
+            path: 'loan-guru',
             pathMatch: 'full',
             loadComponent: () =>
               import('./feature/finance-guru/finance-guru.component').then(
