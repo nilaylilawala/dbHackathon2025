@@ -13,17 +13,26 @@ const redirectLoggedInPipeGenerator: AuthPipeGenerator = () => redirectLoggedInT
 export const appRoutes: Routes = [
   {
     path: '',
+    loadComponent: () => import('./feature/home/home.component').then((m) => m.HomeComponent),
+  },
+  {
+    path: 'loan-guru',
+    pathMatch: 'full',
+    loadComponent: () =>
+      import('./feature/loan-guru/loan-guru.component').then((m) => m.LoanGuruComponent),
+  },
+  {
+    path: 'login',
+    loadComponent: () => import('./feature/login/login.component').then((m) => m.LoginComponent),
+    // canActivate: [AuthGuard],
+    data: {
+      authGuardPipe: redirectLoggedInPipeGenerator,
+    },
+  },
+  {
+    path: '',
     component: AppComponent,
     children: [
-      {
-        path: 'login',
-        loadComponent: () =>
-          import('./feature/login/login.component').then((m) => m.LoginComponent),
-        // canActivate: [AuthGuard],
-        data: {
-          authGuardPipe: redirectLoggedInPipeGenerator,
-        },
-      },
       {
         path: '',
         // pathMatch: 'full',
@@ -33,15 +42,7 @@ export const appRoutes: Routes = [
         data: {
           authGuardPipe: redirectUnauthorizedPipeGenerator,
         },
-        children: [
-          {
-            path: 'loan-guru',
-            pathMatch: 'full',
-            loadComponent: () =>
-              import('./feature/loan-guru/loan-guru.component').then((m) => m.LoanGuruComponent),
-          },
-        ],
-        
+        children: [],
       },
     ],
   },

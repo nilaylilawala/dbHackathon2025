@@ -1,5 +1,5 @@
 {
-  "name": "ng-clarity-starter",
+  "name": "DhanVidya",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -31,7 +31,11 @@
     "ngx-markdown": "^15.1.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.12.0"
+    "zone.js": "~0.12.0",
+    "bootstrap": "^4.5.0",
+    "jquery": "^3.5.1",
+    "ngx-bootstrap": "^6.2.0",
+    "popper.js": "^1.14.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^15.2.8",
