@@ -3,7 +3,6 @@ import { bootstrapApplication, BrowserModule } from '@angular/platform-browser';
 import { enableProdMode, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { appRoutes } from './app/app.routes';
-import { NgxGoogleAnalyticsModule } from 'ngx-google-analytics';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
@@ -23,7 +22,6 @@ if (environment.production) {
 bootstrapApplication(AppComponent, {
   providers: [
     importProvidersFrom(BrowserModule),
-    importProvidersFrom(NgxGoogleAnalyticsModule.forRoot('G-12345678')),
     provideRouter(appRoutes),
     provideHttpClient(withInterceptorsFromDi()),
     provideAnimations(),

@@ -1,9 +1,10 @@
 {
-  "name": "test",
+  "name": "ng-clarity-starter",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",    "build": "ng build",
+    "start": "node first-config.js",
+    "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint"
@@ -27,7 +28,6 @@
     "@google/genai": "^1.9.0",
     "firebase": "9.10",
     "marked": "^4.3.0",
-    "ngx-google-analytics": "^14.0.1",
     "ngx-markdown": "^15.1.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

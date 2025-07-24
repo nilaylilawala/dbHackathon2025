@@ -3,7 +3,8 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "test": {      "projectType": "application",
+    "ng-clarity-starter": {
+      "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
@@ -63,16 +64,19 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "test:build:production"            },
+              "browserTarget": "ng-clarity-starter:build:production"
+            },
             "development": {
-              "browserTarget": "test:build:development"            }
+              "browserTarget": "ng-clarity-starter:build:development"
+            }
           },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "test:build"          }
+            "browserTarget": "ng-clarity-starter:build"
+          }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
