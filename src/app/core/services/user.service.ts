@@ -18,6 +18,7 @@ export class UserService {
     email: string;
     contactNumber: string;
     password: string;
+    subscription: boolean
   }): Observable<string> {
       return this.http.post(`${this.baseUrl}/signup`, user, {
       responseType: 'text',

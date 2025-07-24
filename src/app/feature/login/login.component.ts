@@ -23,6 +23,8 @@ export class LoginComponent {
       contactNumber: new FormControl(''),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required),
+      confirmPassword: new FormControl('', Validators.required),
+      subscription: new FormControl(false, Validators.required),
     });
   }
 
@@ -32,10 +34,11 @@ export class LoginComponent {
   }
 
   submit(): void {
-    const { email, password, name, contactNumber } = this.loginForm.value;
-
+    console.log(this.loginForm.value);
+    const { email, password, name, contactNumber, subscription } = this.loginForm.value;
+    console.log(subscription);
     if (this.isSignUpMode) {
-      this.userService.signup({ email, password, name, contactNumber }).subscribe({
+      this.userService.signup({ email, password, name, contactNumber, subscription}).subscribe({
         next: (response: string) => {
           if (response === 'User registered successfully!') {
             this.router.navigate(['/loan-guru']);
