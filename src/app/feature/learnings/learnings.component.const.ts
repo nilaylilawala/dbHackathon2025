@@ -1,10 +1,10 @@
 export const languages = [
+  { label: 'English', value: 'english' },
   { label: 'Hindi', value: 'hindi' },
   { label: 'Marathi', value: 'marathi' },
   { label: 'Gujarati', value: 'gujarati' },
   { label: 'Bengali', value: 'bengali' },
   { label: 'Kannada', value: 'kannada' },
-  { label: 'English', value: 'english' },
 ];
 
 export const learningData = {

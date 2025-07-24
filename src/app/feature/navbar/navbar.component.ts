@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { AccountService } from 'src/app/core/services/account.service';
 import { ClarityModule, ClrIconModule, ClrVerticalNavModule } from '@clr/angular';
 import {
   assignUserIcon,
@@ -26,11 +25,18 @@ ClarityIcons.addIcons(dollarBillIcon);
   imports: [CommonModule, ClrIconModule, ClrVerticalNavModule, ClarityModule, RouterLink],
 })
 export class NavbarComponent {
-  constructor(public accountService: AccountService, private readonly userService: UserService, private readonly router: Router) {}
+  constructor(private readonly userService: UserService, private readonly router: Router) {}
   public user$ = this.userService.user$;
+  public subscriptionState = null;
 
   public logout() {
     this.userService.logout();
     this.router.navigateByUrl('/login');
+  }
+
+  public subscription(){
+    this.userService.subscribeToNewsletter().subscribe((response) => {
+      this.subscriptionState = response;
+    });
   }
 }

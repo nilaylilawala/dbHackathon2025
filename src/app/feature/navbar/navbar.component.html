@@ -7,9 +7,10 @@
     <a routerLink="/learnings" class="nav-link nav-text"> Financial Literacy </a>
   </div>
   <div class="header-actions">
-    <a routerLink="/login" class="nav-link nav-text"> {{ (user$ | async) || 'Login / Sign Up' }}</a>
+    <a routerLink="/login" class="nav-link nav-text" *ngIf="!(user$ | async)"> Login / Sign Up</a>
+    <a class="nav-link nav-text" *ngIf="(user$ | async)"> {{ user$ | async }}</a>
+    <a class="nav-link nav-text" *ngIf="(user$ | async)"  (click)="subscription()"> {{ subscriptionState || 'Subscribe / Unsubscribe' }}</a>
     <a routerLink="/login" class="nav-link nav-text" *ngIf="user$ | async" (click)="logout()"> Logout</a>
-    <a routerLink="/login" class="nav-link nav-text" *ngIf="user$ | async" > Preferences</a>
     <!-- <a routerLink="/login" class="nav-link nav-text">
       <span class="title"><cds-icon shape="user"></cds-icon> </span>
       <span class="title"><cds-icon shape="login"></cds-icon> </span>

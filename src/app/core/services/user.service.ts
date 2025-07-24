@@ -9,6 +9,7 @@ export class UserService {
   private baseUrl = 'http://localhost:8080';
 
   private currentUserSubject = new BehaviorSubject<string | null>(null);
+  // private currentUserSubject = new BehaviorSubject<string | null>('gunjan203144@gmail.com');
   public user$: Observable<string | null> = this.currentUserSubject.asObservable();
 
   constructor(private http: HttpClient) {}
@@ -52,4 +53,11 @@ export class UserService {
   logout(): void {
     this.currentUserSubject.next(null);
   }
+
+  subscribeToNewsletter() : Observable<any>{
+    return this.http.post(`${this.baseUrl}/subscription`, {
+      responseType: 'text',
+    })
+  }
+
 }
