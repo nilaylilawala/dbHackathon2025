@@ -37,6 +37,7 @@ export class LoginComponent {
     console.log(this.loginForm.value);
     const { email, password, name, contactNumber, subscription } = this.loginForm.value;
     console.log(subscription);
+    this.userService.subscriptionState = subscription === true ? true : false;
     if (this.isSignUpMode) {
       this.userService.signup({ email, password, name, contactNumber, subscription}).subscribe({
         next: (response: string) => {

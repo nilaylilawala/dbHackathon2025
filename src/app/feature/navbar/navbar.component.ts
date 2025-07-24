@@ -25,9 +25,8 @@ ClarityIcons.addIcons(dollarBillIcon);
   imports: [CommonModule, ClrIconModule, ClrVerticalNavModule, ClarityModule, RouterLink],
 })
 export class NavbarComponent {
-  constructor(private readonly userService: UserService, private readonly router: Router) {}
+  constructor(public userService: UserService, private readonly router: Router) {}
   public user$ = this.userService.user$;
-  public subscriptionState = null;
 
   public logout() {
     this.userService.logout();
@@ -36,7 +35,7 @@ export class NavbarComponent {
 
   public subscription(){
     this.userService.subscribeToNewsletter().subscribe((response) => {
-      this.subscriptionState = response;
+      this.userService.subscriptionState = response;
     });
   }
 }

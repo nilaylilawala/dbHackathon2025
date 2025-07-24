@@ -7,11 +7,12 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 })
 export class UserService {
   private baseUrl = 'http://localhost:8080';
-
+  public subscriptionState: any = null;
   private currentUserSubject = new BehaviorSubject<string | null>(null);
   // private currentUserSubject = new BehaviorSubject<string | null>('gunjan203144@gmail.com');
   public user$: Observable<string | null> = this.currentUserSubject.asObservable();
 
+  public email: any;
   constructor(private http: HttpClient) {}
 
   signup(user: {
@@ -34,6 +35,12 @@ export class UserService {
     );
   }
 
+  updateEmail(){
+    this.user$.subscribe((value) => {
+      this.email = value;
+    })
+  }
+
   login(email: string, password: string): Observable<string> {
     return this.http.post(
       `${this.baseUrl}/login`,
@@ -54,8 +61,15 @@ export class UserService {
     this.currentUserSubject.next(null);
   }
 
+  getEmail(){
+    return this.user$
+  }
+
   subscribeToNewsletter() : Observable<any>{
-    return this.http.post(`${this.baseUrl}/subscription`, {
+    this.updateEmail();
+    return this.http.post(`${this.baseUrl}/subscription`,{
+     email: this.email
+    }, {
       responseType: 'text',
     })
   }
