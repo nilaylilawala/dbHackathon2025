@@ -1,61 +1,220 @@
-<div class="clr-row">
-    <div class="card">
-        <h3 class="card-header">Loan Guru</h3>
-        <div class="card-block">
-            <form clrForm [formGroup]="askForm">
-                <clr-input-container>
-                    <label>Loan Purpose</label>
-                    <input clrInput formControlName="loanPurpose" />
-                </clr-input-container>
-                <clr-input-container>
-                    <label>Desired Amount</label>
-                    <input clrInput formControlName="desiredAmount" />
-                </clr-input-container>
-                <clr-input-container>
-                    <label>Monthly Income</label>
-                    <input clrInput formControlName="monthlyIncome" />
-                </clr-input-container>
-                <clr-input-container>
-                    <label>Employment Status</label>
-                    <input clrInput formControlName="employmentStatus" />
-                </clr-input-container>
-                <clr-input-container>
-                    <label>Existing Loans</label>
-                    <input clrInput formControlName="existingLoans" />
-                </clr-input-container>
-                <clr-input-container>
-                    <label>Repayment Period</label>
-                    <input clrInput formControlName="repaymentPeriod" />
-                </clr-input-container>
-                <clr-input-container>
-                    <label>Credit Score</label>
-                    <input clrInput formControlName="creditScore" />
-                </clr-input-container>
-                <clr-input-container>
-                    <label>Age</label>
-                    <input clrInput formControlName="age" />
-                </clr-input-container>
-            </form>
+<div class="content-container">
+    <div class="content-area">
+        <!-- Header Section -->
+        <div class="header-section">
+            <h1>🏦 Loan Guru - Your Financial Guide</h1>
+            <div class="action-buttons">
+                <button class="btn btn-outline" (click)="openTestKnowledge()">
+                    🧠 Test Your Knowledge
+                </button>
+                <button class="btn btn-primary" (click)="openAskGuru()">
+                    💬 Ask Guru
+                </button>
+            </div>
         </div>
-        <div class="card-footer">
-            <button class="btn btn-primary" type="submit" (click)="submit()">Submit</button>
-            <button class="btn" type="button" (click)="reset()">Reset</button>
-        </div>
-    </div>
-</div>
-<div class="clr-row">
-    <div class="card">
-        <h3 class="card-header">Suggestions</h3>
-        <div class="spinner-group">
-                <span class="spinner spinner-inline center-spinner" *ngIf="loading">
-                    Loading...
+
+        <!-- Quick Tips Alert -->
+        <clr-alert [clrAlertClosable]="false" clrAlertType="info" class="tips-alert">
+            <clr-alert-item>
+                <span class="alert-text">
+                    <strong>💡 Quick Tip:</strong> Always check your CIBIL score before applying and ensure EMI is
+                    less than 40% of your monthly income.
                 </span>
-                <span class="center-loading" *ngIf="loading">
-                    Loading...
-                </span>
-        </div>
-        <div class="card-block">
-            <markdown [data]="aiSuggestion"></markdown>
-        </div>
+            </clr-alert-item>
+        </clr-alert>
+
+        <!-- Navigation Tabs -->
+        <clr-tabs>
+            <clr-tab>
+                <button clrTabLink id="loan-types-tab">
+                    <clr-icon shape="library"></clr-icon>
+                    Loan Types
+                </button>
+                <clr-tab-content id="loan-types-content" *clrIfActive>
+
+                    <!-- Loan Types Grid -->
+                    <div class="loan-grid">
+                        <div *ngFor="let loan of loanTypes" class="loan-card" [style.border-left-color]="loan.color">
+                            <div class="loan-card-header" [style.background-color]="loan.color ">
+                                <clr-icon [attr.shape]="loan.icon" size="24" [style.color]="loan.color"></clr-icon>
+                                <h3 [style.color]="'white'">{{ loan.name }}</h3>
+                            </div>
+
+                            <div class="loan-card-content">
+                                <p class="loan-description">{{ loan.description }}</p>
+
+                                <div class="loan-details">
+                                    <div class="detail-item">
+                                        <strong>Interest Rate:</strong> {{ loan.interestRate }}
+                                    </div>
+                                    <div class="detail-item">
+                                        <strong>Tenure:</strong> {{ loan.tenure }}
+                                    </div>
+                                </div>
+
+                                <clr-accordion>
+                                    <clr-accordion-panel>
+                                        <clr-accordion-title>
+                                            <clr-icon shape="user" size="16"></clr-icon>
+                                            Eligibility Criteria
+                                        </clr-accordion-title>
+                                        <clr-accordion-content>
+                                            <ul class="eligibility-list">
+                                                <li *ngFor="let criteria of loan.eligibility">{{ criteria }}</li>
+                                            </ul>
+                                        </clr-accordion-content>
+                                    </clr-accordion-panel>
+
+                                    <clr-accordion-panel>
+                                        <clr-accordion-title>
+                                            <clr-icon shape="file-group" size="16"></clr-icon>
+                                            Required Documents
+                                        </clr-accordion-title>
+                                        <clr-accordion-content>
+                                            <ul class="documents-list">
+                                                <li *ngFor="let doc of loan.documents">{{ doc }}</li>
+                                            </ul>
+                                        </clr-accordion-content>
+                                    </clr-accordion-panel>
+
+                                    <clr-accordion-panel>
+                                        <clr-icon shape="star" size="16"></clr-icon>
+                                        <clr-accordion-title>Key Features</clr-accordion-title>
+                                        <clr-accordion-content>
+                                            <ul class="features-list">
+                                                <li *ngFor="let feature of loan.keyFeatures">{{ feature }}</li>
+                                            </ul>
+                                        </clr-accordion-content>
+                                    </clr-accordion-panel>
+
+                                    <clr-accordion-panel *ngIf="loan.taxBenefits">
+                                        <clr-accordion-title>
+                                            <clr-icon shape="calculator" size="16"></clr-icon>
+                                            Tax Benefits
+                                        </clr-accordion-title>
+                                        <clr-accordion-content>
+                                            <ul class="tax-benefits-list">
+                                                <li *ngFor="let benefit of loan.taxBenefits">{{ benefit }}</li>
+                                            </ul>
+                                        </clr-accordion-content>
+                                    </clr-accordion-panel>
+                                </clr-accordion>
+                            </div>
+                        </div>
+                    </div>
+                </clr-tab-content>
+            </clr-tab>
+
+            <clr-tab>
+                <button clrTabLink id="comparison-tab">
+                    <clr-icon shape="analytics"></clr-icon>
+                    Loan Comparison
+                </button>
+                <clr-tab-content id="comparison-content" *clrIfActive>
+                    <div class="comparison-section">
+                        <h2>EMI Comparison (₹10 Lakh Loan, 5 Years)</h2>
+                        <clr-alert [clrAlertClosable]="false" clrAlertType="warning" class="comparison-note">
+                            <clr-alert-item>
+                                <span class="alert-text">
+                                    <strong>Note:</strong> Interest rates vary by bank and individual profile. These
+                                    are approximate figures for comparison purposes only.
+                                </span>
+                            </clr-alert-item>
+                        </clr-alert>
+
+                        <clr-datagrid class="comparison-table">
+                            <clr-dg-column>Loan Type</clr-dg-column>
+                            <clr-dg-column>Interest Rate</clr-dg-column>
+                            <clr-dg-column>Monthly EMI</clr-dg-column>
+                            <clr-dg-column>Total Interest</clr-dg-column>
+
+                            <clr-dg-row *ngFor="let comparison of loanComparisons">
+                                <clr-dg-cell>{{ comparison.loanType }}</clr-dg-cell>
+                                <clr-dg-cell>{{ comparison.rate }}</clr-dg-cell>
+                                <clr-dg-cell>{{ comparison.emi }}</clr-dg-cell>
+                                <clr-dg-cell>{{ comparison.totalInterest }}</clr-dg-cell>
+                            </clr-dg-row>
+                        </clr-datagrid>
+
+
+                    </div>
+                </clr-tab-content>
+            </clr-tab>
+
+            <clr-tab>
+                <button clrTabLink id="eligibility-tab">
+                    <clr-icon shape="check-circle"></clr-icon>
+                    General Eligibility
+                </button>
+                <clr-tab-content id="eligibility-content" *clrIfActive>
+                    <div class="eligibility-section">
+
+                        <div class="eligibility-cards">
+                            <div class="eligibility-card">
+                                <clr-icon shape="user" size="24" class="card-icon"></clr-icon>
+                                <h4>Age Requirement</h4>
+                                <p>21-60 years (at loan maturity)</p>
+                            </div>
+
+                            <div class="eligibility-card">
+                                <clr-icon shape="rupee" size="24" class="card-icon"></clr-icon>
+                                <h4>Minimum Income</h4>
+                                <p>₹15,000-₹25,000 per month (varies by loan type)</p>
+                            </div>
+
+                            <div class="eligibility-card">
+                                <clr-icon shape="certificate" size="24" class="card-icon"></clr-icon>
+                                <h4>Credit Score</h4>
+                                <p>700+ preferred for better rates</p>
+                            </div>
+
+                            <div class="eligibility-card">
+                                <clr-icon shape="briefcase" size="24" class="card-icon"></clr-icon>
+                                <h4>Employment</h4>
+                                <p>Salaried or self-employed with regular income</p>
+                            </div>
+
+                            <div class="eligibility-card">
+                                <clr-icon shape="home" size="24" class="card-icon"></clr-icon>
+                                <h4>Residence</h4>
+                                <p>Owned/rented with stable address history</p>
+                            </div>
+                        </div>
+                    </div>
+                </clr-tab-content>
+            </clr-tab>
+
+            <clr-tab>
+                <button clrTabLink id="tips-tab">
+                    <clr-icon shape="lightbulb"></clr-icon>
+                    Expert Tips
+                </button>
+
+                <clr-tab-content id="tips-content" *clrIfActive>
+                    <div class="tips-section">
+                        <clr-alert [clrAlertClosable]="false" clrAlertType="warning" class="final-tip">
+                            <clr-alert-item>
+                                <span class="alert-text">
+                                    <strong>Remember:</strong> A loan is a financial commitment. Choose wisely based
+                                    on your repayment capacity and genuine need.
+                                </span>
+                            </clr-alert-item>
+                        </clr-alert>
+
+                        <div class="tips-grid">
+                            <div class="tip-card" *ngFor="let tip of expertTips; let i = index">
+                                <div class="tip-number">{{ i + 1 }}</div>
+                                <div class="tip-content">
+                                    <h4>{{ tip.title }}</h4>
+                                    <p>{{ tip.description }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </clr-tab-content>
+            </clr-tab>
+        </clr-tabs>
     </div>
 </div>
