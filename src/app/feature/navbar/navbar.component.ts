@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ClarityModule, ClrIconModule, ClrVerticalNavModule } from '@clr/angular';
 import {
   assignUserIcon,
@@ -24,10 +24,16 @@ ClarityIcons.addIcons(dollarBillIcon);
   styleUrls: ['./navbar.component.scss'],
   imports: [CommonModule, ClrIconModule, ClrVerticalNavModule, ClarityModule, RouterLink],
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit{
   constructor(public userService: UserService, private readonly router: Router) {}
   public user$ = this.userService.user$;
+   isLoggedIn = false;
 
+  ngOnInit(): void {
+    this.user$.subscribe(x => {
+      this.isLoggedIn = x ? true: false;
+    });
+  }
   public logout() {
     this.userService.logout();
     this.router.navigateByUrl('/login');

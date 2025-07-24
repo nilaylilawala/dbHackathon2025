@@ -3,13 +3,13 @@
     <span class="title"><cds-icon shape="dollar-bill"></cds-icon>Dhan Vidya</span>
   </div>
   <div class="header-nav">
-    <a routerLink="/ai-finance-guru" class="nav-link nav-text"> AI Finance Guru </a>
+    <a routerLink="/ai-finance-guru" class="nav-link nav-text" *ngIf="this.isLoggedIn"> AI Finance Guru </a>
     <a routerLink="/learnings" class="nav-link nav-text"> Financial Literacy </a>
   </div>
   <div class="header-actions">
     <a routerLink="/login" class="nav-link nav-text" *ngIf="!(user$ | async)"> Login / Sign Up</a>
-    <a class="nav-link nav-text" *ngIf="(user$ | async)"> {{ user$ | async }}</a>
-    <a class="nav-link nav-text" *ngIf="(user$ | async)"  (click)="subscription()"> {{ this.userService.subscriptionState || 'Subscribe / Unsubscribe' }}</a>
+    <a href="javascript:void(0);" class="nav-link nav-text" *ngIf="(user$ | async)"> {{ user$ | async }}</a>
+    <a href="javascript:void(0);" class="nav-link nav-text" *ngIf="(user$ | async)"  (click)="subscription()"> {{ this.userService.subscriptionState || 'Subscribe / Unsubscribe' }}</a>
     <a routerLink="/login" class="nav-link nav-text" *ngIf="user$ | async" (click)="logout()"> Logout</a>
     <!-- <a routerLink="/login" class="nav-link nav-text">
       <span class="title"><cds-icon shape="user"></cds-icon> </span>

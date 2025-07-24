@@ -42,7 +42,7 @@ export class LoginComponent {
       this.userService.signup({ email, password, name, contactNumber, subscription}).subscribe({
         next: (response: string) => {
           if (response === 'User registered successfully!') {
-            this.router.navigate(['/loan-guru']);
+            this.router.navigate(['/learnings']);
           } else {
             this.error = 'User already registered';
           }
@@ -55,7 +55,7 @@ export class LoginComponent {
       this.userService.login(email, password).subscribe({
         next: (response: string) => {
           if (response === 'Login successful!') {
-            this.router.navigate(['/loan-guru']);
+            this.router.navigate(['/learnings']);
           } else {
             this.error = 'Invalid email or password';
           }
