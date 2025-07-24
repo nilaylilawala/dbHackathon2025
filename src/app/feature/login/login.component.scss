@@ -1,3 +1,8 @@
 :host ::ng-deep .login-wrapper .login .login-group .btn {
-  margin-top: 0.3rem !important;
+  margin-top: 0rem !important;
+}
+
+.wrapper{
+  overflow-y: auto;
+  // max-height: 97vh !important
 }

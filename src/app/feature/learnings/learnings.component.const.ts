@@ -1,4 +1,5 @@
 export const languages = [
+  { label: 'English', value: 'english' },
   { label: 'Hindi', value: 'hindi' },
   { label: 'Marathi', value: 'marathi' },
   { label: 'Gujarati', value: 'gujarati' },
@@ -165,6 +166,38 @@ export const learningData = {
       id: 'MM_D4qPwEM4',
       description:
         'ಕೃಷಿ ಹಣಕಾಸು ಎಂದರೆ ರೈತರಿಗೆ ಬೀಜ, ರಸಗೊಬ್ಬರ, ಕೃಷಿ ಉಪಕರಣಗಳು, ನೀರಾವರಿ ಮತ್ತು ಇತರ ಅಗತ್ಯಗಳಿಗೆ ಆರ್ಥಿಕ ಸಹಾಯ ಒದಗಿಸುವ ವ್ಯವಸ್ಥೆ. ಈ ಸಹಾಯದಿಂದ ರೈತರು ತಮ್ಮ ಉತ್ಪಾದನಾ ಸಾಮರ್ಥ್ಯವನ್ನು ಹೆಚ್ಚಿಸಬಹುದು ಮತ್ತು ಕೃಷಿಯನ್ನು ಲಾಭದಾಯಕ ಹಾಗೂ ಸ್ಥಿರವಾಗಿ ರೂಪಿಸಬಹುದು. ಸಮಯಕ್ಕೆ ಸರಿಯಾಗಿ ಸಾಲ ಮತ್ತು ಸರ್ಕಾರದ ಸಹಾಯ ಯೋಜನೆಗಳು ರೈತರ ಆದಾಯವನ್ನು ಹೆಚ್ಚಿಸಿ ಆರ್ಥಿಕ ಸ್ಥಿರತೆಯನ್ನು ಒದಗಿಸುತ್ತವೆ. ಕೃಷಿ ಅಭಿವೃದ್ಧಿ ಮತ್ತು ಗ್ರಾಮೀಣ ಆರ್ಥಿಕತೆಯನ್ನು ಬಲಪಡಿಸಲು ಇದು ಪ್ರಮುಖ ಪಾತ್ರ ವಹಿಸುತ್ತದೆ.',
+    },
+  ],
+  english: [
+    {
+      title: 'What is Insurance',
+      id: 'o1C7hZWh4Jw',
+      description:
+        'Insurance is a financial agreement between an individual (called the policyholder) and an insurance company (called the insurer) where the insurer promises to provide financial protection or reimbursement against specified losses or risks in exchange for a regular payment called a premium',
+    },
+    {
+      title: 'What is Power Of Compounding',
+      id: 'Rzpfx7QY7HY',
+      description:
+        'Power of Compounding is the process where your investment earns returns, and then those returns themselves start earning returns over time. This creates a snowball effect — the longer you stay invested, the faster your money grows.',
+    },
+    {
+      title: 'What is Systematic Investment Plan (SIP)',
+      url: '4qs7ccA1kMQ',
+      description:
+        'A Systematic Investment Plan (SIP) is a disciplined way to invest a fixed amount regularly (like monthly or quarterly) into mutual funds, especially equity mutual funds,Instead of investing a large lump sum at once, SIP lets you invest small amounts over time, helping you build wealth gradually and take advantage of rupee cost averaging and the power of compounding.',
+    },
+    {
+      title: 'What is Inflation',
+      url: '6nWimJ5UNSE',
+      description:
+        'Inflation is the rate at which the general price level of goods and services rises over time, leading to a decrease in the purchasing power of money.',
+    },
+    {
+      title: 'Importance of saving money in a bank',
+      url: '5x5c9wwQok8',
+      description:
+        'Saving money in a bank is one of the safest and smartest ways to manage your finances. It’s not just about storing money — it’s about growing, protecting, and accessing it efficiently.',
     },
   ],
 };
