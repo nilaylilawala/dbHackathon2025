@@ -3,14 +3,14 @@
     <span class="title"><cds-icon shape="dollar-bill"></cds-icon>Dhan Vidya</span>
   </div>
   <div class="header-nav">
-    <a routerLink="/ai-finance-guru" class="nav-link nav-text"> AI Finance Guru </a>
     <a routerLink="/learnings" class="nav-link nav-text"> Financial Literacy </a>
-    <a routerLink="/ask-guru" class="nav-link nav-text"> Ask Guru </a>
+    <a routerLink="/ai-finance-guru" class="nav-link nav-text" *ngIf="isLoggedIn"> AI Finance Guru </a>
+    <a routerLink="/ask-guru" class="nav-link nav-text" *ngIf="isLoggedIn"> Ask Guru </a>
   </div>
   <div class="header-actions">
     <a routerLink="/login" class="nav-link nav-text" *ngIf="!(user$ | async)"> Login / Sign Up</a>
     <a href="javascript:void(0);" class="nav-link nav-text" *ngIf="(user$ | async)"> {{ user$ | async }}</a>
-    <a href="javascript:void(0);" class="nav-link nav-text" *ngIf="(user$ | async) && this.userService.subscriptionState === null"  (click)="subscription()"> {{ this.userService.subscriptionState || 'Subscribe / Unsubscribe' }}</a>
+    <a href="javascript:void(0);" class="nav-link nav-text" *ngIf="(user$ | async) && this.userService.subscriptionState === null"  (click)="subscription()"> {{ 'Subscribe / Unsubscribe' }}</a>
     <a href="javascript:void(0);" class="nav-link nav-text" *ngIf="(user$ | async) && this.userService.subscriptionState === true"  (click)="subscription()"> Subscribed</a>
     <a href="javascript:void(0);" class="nav-link nav-text" *ngIf="(user$ | async) && this.userService.subscriptionState === false"  (click)="subscription()"> Unsubscribed</a>
     <a routerLink="/login" class="nav-link nav-text" *ngIf="user$ | async" (click)="logout()"> Logout</a>

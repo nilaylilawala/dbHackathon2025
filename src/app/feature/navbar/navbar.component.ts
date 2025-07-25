@@ -35,13 +35,14 @@ export class NavbarComponent implements OnInit{
     });
   }
   public logout() {
+    this.isLoggedIn=false
     this.userService.logout();
     this.router.navigateByUrl('/login');
   }
 
   public subscription(){
     this.userService.subscribeToNewsletter().subscribe((response) => {
-      this.userService.subscriptionState = response;
+      this.userService.subscriptionState = response === 'Subscribed!' ? true: false;
     });
   }
 }
