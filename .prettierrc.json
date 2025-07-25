@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "singleQuote": true,
   "printWidth": 100,
@@ -14,3 +15,21 @@
     }
   ]
 }
+=======
+{
+  "singleQuote": true,
+  "printWidth": 100,
+  "bracketSameLine": false,
+  "bracketSpacing": true,
+  "semi": true,
+  "endOfLine": "lf",
+  "overrides": [
+    {
+      "files": "*.scss",
+      "options": {
+        "singleQuote": false
+      }
+    }
+  ]
+}
+>>>>>>> origin/main

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <clr-main-container>
   <clr-header class="header-6">
     <div class="branding">
@@ -31,3 +32,38 @@
     </div>
   </div>
 </clr-main-container>
+=======
+<clr-main-container>
+  <clr-header class="header-6">
+    <div class="branding">
+      <a routerLink="./" class="nav-link">
+        <cds-icon shape="dashboard"></cds-icon>
+        <span class="title">Your Finance Guru powered by AI</span>
+      </a>
+    </div>
+    <div class="header-actions">
+      <clr-dropdown>
+        <button class="nav-text" clrDropdownTrigger aria-label="open user profile">
+          <span id="user-name">{{ (user$ | async) || 'User' }}</span>
+          <cds-icon shape="angle" direction="down"></cds-icon>
+        </button>
+        <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
+          <a clrDropdownItem> Preferences </a>
+          <a clrDropdownItem (click)="logout()">Log out</a>
+        </clr-dropdown-menu>
+      </clr-dropdown>
+    </div>
+  </clr-header>
+  <div class="content-container">
+    <clr-vertical-nav [clrVerticalNavCollapsible]="true" [clrVerticalNavCollapsed]="false">
+      <a clrVerticalNavLink routerLink="./learnings" routerLinkActive="active">
+        Learning and Earning
+      </a>
+      <a clrVerticalNavLink routerLink="./loan-guru" routerLinkActive="active">Loan Guru</a>
+    </clr-vertical-nav>
+    <div class="content-area">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</clr-main-container>
+>>>>>>> origin/main

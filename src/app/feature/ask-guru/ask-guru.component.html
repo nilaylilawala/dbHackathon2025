@@ -1,0 +1,113 @@
+<div class="ask-guru-container">
+    <!-- Header -->
+    <div class="ask-guru-header">
+        <div class="header-content">
+            <cds-icon shape="chat-bubble" class="header-icon"></cds-icon>
+            <div class="header-text">
+                <h2 [style.color]="'white'">Ask Guru</h2>
+                <p [style.color]="'lightgray'">Your Personal Financial Assistant</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="clr-row">
+        <!-- Chat Section -->
+        <div class="clr-col-lg-8 clr-col-md-7 clr-col-12">
+            <div class="card chat-card">
+                <div class="card-header">
+                    <h4 class="card-title">
+                        <cds-icon shape="talk-bubbles"></cds-icon>
+                        Financial Chat Assistant
+                    </h4>
+                </div>
+
+                <div class="card-block">
+                    <!-- Chat Messages -->
+                    <div class="chat-messages" #chatContainer>
+                        <div class="message" *ngFor="let message of messages"
+                            [class.user-message]="message.sender === 'user'"
+                            [class.ai-message]="message.sender === 'ai'">
+                            <div class="message-avatar">
+                                <cds-icon [attr.shape]="message.sender === 'user' ? 'user' : 'help-info'"
+                                    [class.user-icon]="message.sender === 'user'"
+                                    [class.ai-icon]="message.sender === 'ai'"></cds-icon>
+                            </div>
+                            <div class="message-content">
+                                <div *ngIf="message.sender === 'user'" class="message-text">{{ message.content }}</div>
+                                <markdown class="message-text" *ngIf="message.sender === 'ai'" [data]="message.content">
+                                </markdown>
+                                <div class="message-time">{{ message.timestamp | date:'short' }}</div>
+                            </div>
+                        </div>
+
+                        <!-- Loading Message -->
+                        <div class="message ai-message" *ngIf="isLoading">
+                            <div class="message-avatar">
+                                <cds-icon shape="help-info" class="ai-icon"></cds-icon>
+                            </div>
+                            <div class="message-content">
+                                <div class="message-text">
+                                    <span class="spinner spinner-sm">Loading...</span>
+                                    Thinking...
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chat Input -->
+                    <form [formGroup]="chatForm" (ngSubmit)="onSendMessage()" class="clr-form-full-width">
+                        <div class="chat-input-wrapper">
+                            <clr-input-container>
+                                <input type="text" clrInput formControlName="message" [style.width]="'50vw'" [style.margin-left]="'1rem'"
+                                    placeholder="Ask your financial question..." [disabled]="isLoading">
+                            </clr-input-container>
+                            <button type="submit" class="btn btn-primary" [disabled]="chatForm.invalid || isLoading"
+                                [clrLoading]="loadingState">
+                                <cds-icon shape="arrow" direction="right"></cds-icon>
+                                Send
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="clr-col-lg-4 clr-col-md-5 clr-col-12">
+            <div class="sidebar-content">
+
+
+                <!-- Common Questions -->
+                <div class="card faq-card">
+                    <div class="card-header">
+                        <h4 class="card-title">
+                            <cds-icon shape="help-info"></cds-icon>
+                            Common Questions
+                        </h4>
+                    </div>
+                    <div class="card-block">
+                        <div class="faq-list">
+                            <button type="button" class="btn btn-outline btn-block faq-item"
+                                *ngFor="let question of commonQuestions" (click)="onQuestionClick(question)">
+                                <cds-icon shape="talk-bubbles" class="faq-icon"></cds-icon>
+                                {{ question }}
+                            </button>
+                        </div>
+
+                        <!-- PDF Export -->
+                        <div class="pdf-export">
+                            <button type="button" class="btn btn-success btn-block" (click)="generatePDF()"
+                                [disabled]="messages.length <= 1">
+                                <cds-icon shape="file"></cds-icon>
+                                Export Chat as PDF
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
