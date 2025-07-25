@@ -1,11 +1,70 @@
-<div id="imageBg">
-  <div class="container">
-    <h1 style="margin-top: 60px; margin-left: 150px">
-      Changing the way India invests
-      <!-- <br /> -->
-      "no matter <strong>who you are"</strong>,
-      <br />
-      We can take you towards financial awareness!
-    </h1>
-  </div>
+<div class="home-container">
+  <!-- Hero Carousel Section -->
+  <section class="hero-carousel">
+    <div class="carousel-container">
+      <div class="carousel-content">
+        <div class="carousel-slide" *ngFor="let slide of carouselSlides; let i = index"
+          [class.active]="i === currentSlide">
+
+          <div class="clr-row slide-content">
+            <div class="clr-col-lg-6 clr-col-md-6 clr-col-12 slide-text">
+              <div class="slide-text-content">
+                <h1 class="slide-title" [style.padding-left]="'4rem'">{{ slide.title }}</h1>
+                <h2 class="slide-subtitle" [style.padding-left]="'4rem'">{{ slide.subtitle }}</h2>
+                <p class="slide-description" [style.padding-left]="'4rem'" >{{ slide.description }}</p>
+                <button class="btn btn-primary" [style.margin-left]="'4rem'" (click)="navigateToRoute(slide.route)">
+                  {{ slide.cta }}
+                  <cds-icon shape="arrow" direction="right"></cds-icon>
+                </button>
+              </div>
+            </div>
+
+            <div class="clr-col-lg-6 clr-col-md-6 clr-col-12 slide-image">
+              <div class="image-container">
+                <!-- Placeholder for financial literacy images -->
+                <div class="financial-image" [attr.data-slide]="slide.id">
+                  <img [src]="slide.imageUrl" width="350px" height="350px">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carousel Controls -->
+      <div class="carousel-controls">
+        <button class="carousel-btn prev-btn" (click)="prevSlide()">
+          <cds-icon shape="angle" direction="left"></cds-icon>
+        </button>
+        <button class="carousel-btn next-btn" (click)="nextSlide()">
+          <cds-icon shape="angle" direction="right"></cds-icon>
+        </button>
+      </div>
+
+      <!-- Carousel Indicators -->
+      <div class="carousel-indicators">
+        <button *ngFor="let slide of carouselSlides; let i = index" class="indicator"
+          [class.active]="i === currentSlide" (click)="goToSlide(i)">
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action Section -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2 [style.color]="'white'">Ready to Take Control of Your Finances?</h2>
+        <p [style.color]="'lightgray'">Join thousands of users who have improved their financial literacy with Dhan Vidya</p>
+        <div class="cta-buttons">
+          <button class="btn btn-primary btn-lg" (click)="navigateToRoute('/ask-guru')">
+            Ask Financial Expert
+          </button>
+          <button class="btn btn-outline btn-lg" (click)="navigateToRoute('/test-knowledge')">
+            Test Your Knowledge
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>

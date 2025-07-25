@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ClarityModule } from '@clr/angular';
+import { quiz } from 'src/assets/questions/insurance_guru';
 
 export interface LoanType {
   id: string;
@@ -65,13 +66,18 @@ export interface EligibilityInfo {
   imports: [CommonModule, ClarityModule, FormsModule, RouterModule]
 })
 export class InsuranceGuruComponent {
-  openAskGuru() {
 
-  }
+  showTestModal: boolean = false;
+  currentQuestionIndex: number = 0;
+  selectedAnswer: number | null = null;
+  quizScore: number = 0;
+  showQuizResult: boolean = false;
+  currentQuiz: any = quiz;
+  currentQuestion: any = null;
+  selectedAnswerId: string | null = null;
+  showExplanation = false;
+  public Math = Math;
 
-  openTestKnowledge() {
-
-  }
   insuranceTypes: InsuranceType[] = [
     {
       id: 'life-insurance',
@@ -430,4 +436,65 @@ export class InsuranceGuruComponent {
       description: 'Maintain physical and digital copies of all insurance documents. Inform your family about policy details and how to claim.'
     }
   ];
+
+  startTest() {
+    if (!this.currentQuiz || !this.currentQuiz.questions) {
+      console.error('Quiz data not loaded');
+      return;
+    }
+
+    this.currentQuestionIndex = 0;
+    this.quizScore = 0;
+    this.selectedAnswerId = null;
+    this.showExplanation = false;
+    this.showQuizResult = false;
+    this.currentQuestion = this.currentQuiz.questions[0];
+    this.showTestModal = true;
+  }
+
+  // Update submitAnswer method
+  submitAnswer() {
+    if (this.selectedAnswerId === null) return;
+
+    // Check if answer is correct
+    const selectedOption = this.currentQuestion.options.find((opt: any) => opt.id === this.selectedAnswerId);
+    if (selectedOption && selectedOption.isCorrect) {
+      this.quizScore++;
+    }
+
+    // Show explanation
+    this.showExplanation = true;
+  }
+
+  // Update nextQuestion method
+  nextQuestion() {
+    if (this.currentQuestionIndex < this.currentQuiz.questions.length - 1) {
+      this.currentQuestionIndex++;
+      this.currentQuestion = this.currentQuiz.questions[this.currentQuestionIndex];
+      this.selectedAnswerId = null;
+      this.showExplanation = false;
+    } else {
+      this.showQuizResult = true;
+    }
+  }
+
+  // Add this new method
+  getQuizSubject(): string {
+    // Customize this based on your guru type
+    if (this.currentQuiz?.quizId === 'loan-guru') return 'loans and credit management';
+    if (this.currentQuiz?.quizId === 'insurance-guru') return 'insurance and risk management';
+    if (this.currentQuiz?.quizId === 'investment-guru') return 'investments and wealth building';
+    return 'financial concepts';
+  }
+
+  // Update closeTestModal method
+  closeTestModal() {
+    this.showTestModal = false;
+    this.currentQuestionIndex = 0;
+    this.quizScore = 0;
+    this.selectedAnswerId = null;
+    this.showExplanation = false;
+    this.showQuizResult = false;
+    this.currentQuestion = null;
+  }
 }

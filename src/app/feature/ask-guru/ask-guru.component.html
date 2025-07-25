@@ -4,8 +4,8 @@
         <div class="header-content">
             <cds-icon shape="chat-bubble" class="header-icon"></cds-icon>
             <div class="header-text">
-                <h2>Ask Guru</h2>
-                <p>Your Personal Financial Assistant</p>
+                <h2 [style.color]="'white'">Ask Guru</h2>
+                <p [style.color]="'lightgray'">Your Personal Financial Assistant</p>
             </div>
         </div>
     </div>
@@ -59,7 +59,7 @@
                     <form [formGroup]="chatForm" (ngSubmit)="onSendMessage()" class="clr-form-full-width">
                         <div class="chat-input-wrapper">
                             <clr-input-container>
-                                <input type="text" clrInput formControlName="message"
+                                <input type="text" clrInput formControlName="message" [style.width]="'50vw'" [style.margin-left]="'1rem'"
                                     placeholder="Ask your financial question..." [disabled]="isLoading">
                             </clr-input-container>
                             <button type="submit" class="btn btn-primary" [disabled]="chatForm.invalid || isLoading"
@@ -78,37 +78,6 @@
         <div class="clr-col-lg-4 clr-col-md-5 clr-col-12">
             <div class="sidebar-content">
 
-                <!-- API Configuration -->
-                <!-- <div class="card api-card">
-                    <div class="card-header">
-                        <h4 class="card-title">
-                            <cds-icon shape="key"></cds-icon>
-                            API Configuration
-                        </h4>
-                    </div>
-                    <div class="card-block">
-                        <form [formGroup]="apiKeyForm">
-                            <clr-password-container>
-                                <label>Google AI Studio API Key</label>
-                                <input type="password" clrPassword formControlName="apiKey"
-                                    placeholder="Enter your API key">
-                                <clr-control-helper>Your API key is stored locally and securely</clr-control-helper>
-                            </clr-password-container>
-                        </form>
-
-                        <div class="api-status">
-                            <clr-alert [clrAlertType]="isConnected ? 'success' : 'warning'" [clrAlertClosable]="false"
-                                [clrAlertSizeSmall]="true">
-                                <clr-alert-item>
-                                    <span class="alert-text">
-                                        {{ isConnected ? 'API Connected Successfully' : 'Please enter your API key to
-                                        start chatting' }}
-                                    </span>
-                                </clr-alert-item>
-                            </clr-alert>
-                        </div>
-                    </div>
-                </div> -->
 
                 <!-- Common Questions -->
                 <div class="card faq-card">
@@ -138,23 +107,6 @@
                     </div>
                 </div>
 
-                <!-- Quick Tips -->
-                <div class="card tips-card">
-                    <div class="card-header">
-                        <h4 class="card-title">
-                            <cds-icon shape="lightbulb"></cds-icon>
-                            Quick Tips
-                        </h4>
-                    </div>
-                    <div class="card-block">
-                        <ul class="tips-list">
-                            <li>Always check your CIBIL score before applying for loans</li>
-                            <li>Maintain an emergency fund of 6-12 months expenses</li>
-                            <li>Compare interest rates from multiple lenders</li>
-                            <li>Read all terms and conditions carefully</li>
-                        </ul>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

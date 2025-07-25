@@ -4,11 +4,8 @@
         <div class="header-section">
             <h1>📈 Investment Guru - Your Wealth Building Guide</h1>
             <div class="action-buttons">
-                <button class="btn btn-outline" (click)="openTestKnowledge()">
+                <button class="btn btn-primary" (click)="startTest()">
                     🧠 Test Your Knowledge
-                </button>
-                <button class="btn btn-primary" (click)="openAskGuru()">
-                    💬 Ask Guru
                 </button>
             </div>
         </div>
@@ -333,91 +330,77 @@
 
 <!-- Test Knowledge Modal -->
 <clr-modal [(clrModalOpen)]="showTestModal" [clrModalClosable]="false">
-    <h3 class="modal-title">Investment Knowledge Test</h3>
+    <h3 class="modal-title">{{ currentQuiz?.title || 'Knowledge Test' }}</h3>
     <div class="modal-body">
         <div *ngIf="!showQuizResult">
-            <p class="question-info">Question {{ currentQuestionIndex + 1 }} of {{ quizQuestions.length }}</p>
-            <h4>{{ quizQuestions[currentQuestionIndex].question }}</h4>
+            <p class="question-info">Question {{ currentQuestionIndex + 1 }} of {{ currentQuiz?.questions?.length || 0
+                }}</p>
+            <h4>{{ currentQuestion?.question }}</h4>
 
             <div class="quiz-options">
-                <label *ngFor="let option of quizQuestions[currentQuestionIndex].options; let i = index"
-                    class="radio-option">
-                    <input type="radio" [value]="i" [(ngModel)]="selectedAnswer" name="answer">
-                    {{ option }}
+                <label *ngFor="let option of currentQuestion?.options; let i = index" class="radio-option"
+                    [class.correct]="showExplanation && option.isCorrect"
+                    [class.wrong]="showExplanation && selectedAnswerId === option.id && !option.isCorrect">
+                    <input type="radio" [value]="option.id" [(ngModel)]="selectedAnswerId" name="answer"
+                        [disabled]="showExplanation">
+                    <span class="option-text">{{ option.text }}</span>
+                    <span *ngIf="showExplanation && option.isCorrect" class="result-icon correct-icon">✓</span>
+                    <span *ngIf="showExplanation && selectedAnswerId === option.id && !option.isCorrect"
+                        class="result-icon wrong-icon">✗</span>
                 </label>
+            </div>
+
+            <!-- Show explanation after answer is submitted -->
+            <div *ngIf="showExplanation" class="explanation-section">
+                <div class="explanation-content">
+                    <h5>Explanation:</h5>
+                    <p>{{ currentQuestion?.explanation }}</p>
+
+                    <div *ngIf="currentQuestion?.tips?.length > 0" class="tips-section">
+                        <h6>💡 Tips:</h6>
+                        <ul>
+                            <li *ngFor="let tip of currentQuestion.tips">{{ tip }}</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div *ngIf="showQuizResult" class="quiz-result">
             <h4>Quiz Completed! 🎉</h4>
-            <p class="score">Your Score: {{ quizScore }} / {{ quizQuestions.length }}</p>
+            <p class="score">Your Score: {{ quizScore }} / {{ currentQuiz?.questions?.length || 0 }}</p>
 
-            <div *ngIf="quizScore >= 4" class="result-message success">
-                <p><strong>Excellent!</strong> You have a good understanding of investment basics.
-                    Keep learning and start your investment journey!</p>
+            <div *ngIf="quizScore >= (currentQuiz?.passingScore || 2)" class="result-message success">
+                <p><strong>Excellent!</strong> You have a good understanding of {{ getQuizSubject() }}.
+                    Keep learning and continue your financial journey!</p>
             </div>
 
-            <div *ngIf="quizScore >= 2 && quizScore < 4" class="result-message warning">
-                <p><strong>Good effort!</strong> You have basic knowledge but should learn more
-                    before making investment decisions.</p>
+            <div *ngIf="quizScore < (currentQuiz?.passingScore || 2) && quizScore >= Math.floor((currentQuiz?.passingScore || 2) / 2)"
+                class="result-message warning">
+                <p><strong>Good effort!</strong> You have basic knowledge but should learn more about {{
+                    getQuizSubject() }}
+                    before making important financial decisions.</p>
             </div>
 
-            <div *ngIf="quizScore < 2" class="result-message danger">
-                <p><strong>Keep Learning!</strong> Consider reading more about investments or
-                    consulting a financial advisor before investing.</p>
-            </div>
-
-            <div class="explanation">
-                <h5>Last Answer Explanation:</h5>
-                <p>{{ quizQuestions[currentQuestionIndex].explanation }}</p>
+            <div *ngIf="quizScore < Math.floor((currentQuiz?.passingScore || 2) / 2)" class="result-message danger">
+                <p><strong>Keep Learning!</strong> Consider reading more about {{ getQuizSubject() }} or
+                    consulting a financial advisor to strengthen your knowledge.</p>
             </div>
         </div>
     </div>
 
     <div class="modal-footer">
-        <button *ngIf="!showQuizResult" class="btn btn-primary" (click)="submitAnswer()"
-            [disabled]="selectedAnswer === null">
-            {{ currentQuestionIndex < quizQuestions.length - 1 ? 'Next Question' : 'Finish Quiz' }} </button>
+        <button *ngIf="!showQuizResult && !showExplanation" class="btn btn-primary" (click)="submitAnswer()"
+            [disabled]="selectedAnswerId === null">
+            Submit Answer
+        </button>
+
+        <button *ngIf="!showQuizResult && showExplanation" class="btn btn-primary" (click)="nextQuestion()">
+            {{ currentQuestionIndex < (currentQuiz?.questions?.length || 0) - 1 ? 'Next Question' : 'Finish Quiz' }}
+                </button>
 
                 <button class="btn btn-outline" (click)="closeTestModal()">
                     {{ showQuizResult ? 'Close' : 'Cancel' }}
                 </button>
-    </div>
-</clr-modal>
-
-<!-- Ask Guru Modal -->
-<clr-modal [(clrModalOpen)]="showAskGuruModal" [clrModalSize]="'lg'">
-    <h3 class="modal-title">Ask Investment Guru 💬</h3>
-    <div class="modal-body">
-        <div class="ask-guru-content">
-            <div class="common-questions">
-                <h5>Popular Questions:</h5>
-                <div class="question-chips">
-                    <button *ngFor="let question of commonQuestions"
-                        class="btn btn-sm btn-outline-primary question-chip" (click)="selectCommonQuestion(question)">
-                        {{ question }}
-                    </button>
-                </div>
-            </div>
-
-            <div class="question-input">
-                <label for="userQuestion">Your Question:</label>
-                <textarea id="userQuestion" class="form-control" [(ngModel)]="userQuestion" rows="3"
-                    placeholder="Type your investment-related question here..."></textarea>
-
-                <button class="btn btn-primary ask-btn" (click)="askGuru()" [disabled]="!userQuestion.trim()">
-                    Ask Guru
-                </button>
-            </div>
-
-            <div class="guru-response" *ngIf="guruResponse">
-                <h5>Guru's Answer:</h5>
-                <div class="response-content" [innerHTML]="guruResponse"></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal-footer">
-        <button class="btn btn-outline" (click)="closeAskGuruModal()">Close</button>
     </div>
 </clr-modal>

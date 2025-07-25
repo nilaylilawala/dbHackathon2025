@@ -2,14 +2,13 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CdsIconModule } from '@cds/angular';
-import { ClarityIcons } from '@cds/core/icon';
+import { arrowIcon, chatBubbleIcon, ClarityIcons, fileIcon, helpInfoIcon, lightbulbIcon, talkBubblesIcon, usersIcon } from '@cds/core/icon';
 import { ClarityModule, ClrIconModule, ClrLoadingState } from '@clr/angular';
 import { GoogleGenAI } from '@google/genai';
 import { environment } from 'environments/environment';
 import { MarkdownModule } from 'ngx-markdown';
-import { of, Subject, takeUntil } from 'rxjs';
-import { GoogleAIService } from 'src/app/core/services/ai.service';
+ClarityIcons.addIcons(chatBubbleIcon, talkBubblesIcon, usersIcon, helpInfoIcon, arrowIcon, fileIcon, lightbulbIcon)
+
 interface ChatMessage {
   id: string;
   sender: 'user' | 'ai';
@@ -52,6 +51,7 @@ export class AskGuruComponent {
   }
 
   ngOnInit(): void {
+    window.scrollTo(0, 0)
     this.addWelcomeMessage();
   }
 

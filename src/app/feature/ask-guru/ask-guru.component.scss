@@ -5,7 +5,7 @@
 }
 
 .ask-guru-header {
-    background: linear-gradient(135deg, #0072a3 0%, #007cbb 100%);
+    background: #00364d;
     border-radius: 0.125rem;
     margin-bottom: 1.5rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -28,7 +28,6 @@
             h2 {
                 margin: 0;
                 font-size: 1.5rem;
-                font-weight: 600;
             }
 
             p {
@@ -153,6 +152,7 @@
     gap: 0.75rem;
     align-items: center;
 }
+
 
 .chat-input {
     flex: 1;
