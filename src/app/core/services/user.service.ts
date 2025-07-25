@@ -6,7 +6,8 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class UserService {
-  private baseUrl = 'http://localhost:8080';
+  // private baseUrl = 'http://localhost:8080';
+  private baseUrl = 'https://whatsapp-bot-456600332343.us-central1.run.app';
   public subscriptionState: any = null;
   private currentUserSubject = new BehaviorSubject<string | null>(null);
   // private currentUserSubject = new BehaviorSubject<string | null>('gunjan203144@gmail.com');
