@@ -1,57 +1,47 @@
-# Angular build artifacts
-/dist
-/tmp
-/out-tsc
-/.angular
+# 🔁 Node & Angular build artifacts
+node_modules/
+dist/
+build/
+out-tsc/
+.angular/
 
-# Compiled output
-/**/*.js
-/**/*.js.map
-/**/*.css
-/**/*.css.map
-
-# Node dependencies
-/node_modules
-
-# IDE and editor folders
-/.vscode
-/.idea
-
-# System files
-.DS_Store
-Thumbs.db
-
-# Logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Environment files
-.env
-.env.*.local
-
-# Angular CLI cache
-/.angular/cache
-
-# Testing
-/coverage
-/test-results
-
-# Optional: Git hooks & local overrides
-/.husky
-/.nvmrc
-
-# Docker Desktop build cache
+# 🔧 Docker artifacts
 .docker/
-.dockerignore
-docker-compose.yml
+docker-compose.override.yml
 
-# VS Code
+# 🗃️ VSCode / IntelliJ / System files
 .vscode/
-
-# IntelliJ
 .idea/
 *.iml
+*.log
+*.lock
+*.class
+*.swp
+*.swo
 
-# Local JDKs (like azul)
-.jdks/
+# ☕ Java build output
+target/
+*.jar
+*.war
+
+# 🧪 Environment
+.env
+.env.*
+
+# 🧵 OS / Editor artifacts
+.DS_Store
+Thumbs.db
+*.bak
+*.tmp
+*.old
+
+# ❌ DLL/EXE binaries and generated tools
+*.dll
+*.exe
+
+# 👨‍💻 Local JDKs
+jdks/
+.azul-*
+
+# 💬 Git itself
+.git/
