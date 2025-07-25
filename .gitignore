@@ -40,3 +40,18 @@ yarn-error.log*
 # Optional: Git hooks & local overrides
 /.husky
 /.nvmrc
+
+# Docker Desktop build cache
+.docker/
+.dockerignore
+docker-compose.yml
+
+# VS Code
+.vscode/
+
+# IntelliJ
+.idea/
+*.iml
+
+# Local JDKs (like azul)
+.jdks/
