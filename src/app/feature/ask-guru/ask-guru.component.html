@@ -34,7 +34,9 @@
                                     [class.ai-icon]="message.sender === 'ai'"></cds-icon>
                             </div>
                             <div class="message-content">
-                                <div class="message-text">{{ message.content }}</div>
+                                <div *ngIf="message.sender === 'user'" class="message-text">{{ message.content }}</div>
+                                <markdown class="message-text" *ngIf="message.sender === 'ai'" [data]="message.content">
+                                </markdown>
                                 <div class="message-time">{{ message.timestamp | date:'short' }}</div>
                             </div>
                         </div>
@@ -60,8 +62,8 @@
                                 <input type="text" clrInput formControlName="message"
                                     placeholder="Ask your financial question..." [disabled]="isLoading">
                             </clr-input-container>
-                            <button type="submit" class="btn btn-primary"
-                                [disabled]="chatForm.invalid || isLoading" [clrLoading]="loadingState">
+                            <button type="submit" class="btn btn-primary" [disabled]="chatForm.invalid || isLoading"
+                                [clrLoading]="loadingState">
                                 <cds-icon shape="arrow" direction="right"></cds-icon>
                                 Send
                             </button>

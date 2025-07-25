@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { CarouselModule } from 'ngx-bootstrap/carousel';
+// import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 @Component({
-  imports: [CarouselModule, CommonModule],
+  imports: [CommonModule],
   standalone: true,
   selector: 'app-home',
   templateUrl: './home.component.html',

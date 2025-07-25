@@ -10,7 +10,6 @@ import { environment } from './environments/environment';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { MarkdownModule } from 'ngx-markdown';
-import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 if (environment.production) {
   enableProdMode();
@@ -29,7 +28,6 @@ bootstrapApplication(AppComponent, {
       provideFirebaseApp(() => initializeApp(environment.firebase)),
       provideAuth(() => getAuth()),
       provideStorage(() => getStorage()),
-      CarouselModule.forRoot(),
       MarkdownModule.forRoot()
     ),
   ],

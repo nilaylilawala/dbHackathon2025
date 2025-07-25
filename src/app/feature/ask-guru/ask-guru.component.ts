@@ -7,6 +7,7 @@ import { ClarityIcons } from '@cds/core/icon';
 import { ClarityModule, ClrIconModule, ClrLoadingState } from '@clr/angular';
 import { GoogleGenAI } from '@google/genai';
 import { environment } from 'environments/environment';
+import { MarkdownModule } from 'ngx-markdown';
 import { of, Subject, takeUntil } from 'rxjs';
 import { GoogleAIService } from 'src/app/core/services/ai.service';
 interface ChatMessage {
@@ -20,7 +21,7 @@ interface ChatMessage {
   templateUrl: './ask-guru.component.html',
   styleUrls: ['./ask-guru.component.scss'],
   standalone: true,
-  imports: [CommonModule, ClarityModule, FormsModule, ClrIconModule, ReactiveFormsModule],
+  imports: [CommonModule, ClarityModule, FormsModule, ClrIconModule, ReactiveFormsModule, MarkdownModule],
 })
 export class AskGuruComponent {
   @ViewChild('chatContainer', { static: false }) chatContainer!: ElementRef;
@@ -111,7 +112,7 @@ export class AskGuruComponent {
     this.loadingState = ClrLoadingState.LOADING;
 
     try {
-      const prompt = `Behave like you are a financial chatbot for users and help them on their questions. Response should be user friendly and in minimum words with direct answer. If it seems that given input is not related to finance, simply avoid giving other response and tell user to ask finance related questions only. User Input is: ${message}`
+      const prompt = `Behave like you are a financial chatbot for users and help them on their questions. Response should be user friendly and in detail with direct answer. If rate of particular financial asset is asked then fetch latest rate as per indian currency from internet and give response. If it seems that given input is not related to finance, simply avoid giving other response and tell user to ask finance related questions only. User Input is: ${message}`
       await this.ai.models.generateContent({
         model: "gemini-2.5-flash",
         contents: prompt,
