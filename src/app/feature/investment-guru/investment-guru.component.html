@@ -1,0 +1,423 @@
+<div class="content-container">
+    <div class="content-area">
+        <!-- Header Section -->
+        <div class="header-section">
+            <h1>📈 Investment Guru - Your Wealth Building Guide</h1>
+            <div class="action-buttons">
+                <button class="btn btn-outline" (click)="openTestKnowledge()">
+                    🧠 Test Your Knowledge
+                </button>
+                <button class="btn btn-primary" (click)="openAskGuru()">
+                    💬 Ask Guru
+                </button>
+            </div>
+        </div>
+
+        <!-- Quick Tips Alert -->
+        <clr-alert [clrAlertClosable]="false" clrAlertType="info" class="tips-alert">
+            <clr-alert-item>
+                <span class="alert-text">
+                    <strong>💡 Quick Tip:</strong> Start investing early, even with small amounts. Time and compounding
+                    are your best friends in wealth creation!
+                </span>
+            </clr-alert-item>
+        </clr-alert>
+
+        <!-- Navigation Tabs -->
+        <clr-tabs>
+            <clr-tab>
+                <button clrTabLink id="investment-types-tab">
+                    <clr-icon shape="analytics"></clr-icon>
+                    Investment Types
+                </button>
+                <clr-tab-content id="investment-types-content" *clrIfActive>
+                    <!-- Investment Types Grid -->
+                    <div class="investment-grid">
+                        <div *ngFor="let investment of investmentTypes" class="investment-card"
+                            [style.border-left-color]="investment.color">
+                            <div class="investment-card-header" [style.background-color]="investment.color"
+                                [style.color]="'white'">
+                                <clr-icon [attr.shape]="investment.icon" size="24" [style.color]="'white'"></clr-icon>
+                                <div class="header-content">
+                                    <h3 [style.color]="'white'">{{ investment.name }}</h3>
+                                    <div class="risk-badge" [ngClass]="'risk-' + investment.riskLevel.toLowerCase()">
+                                        {{ investment.riskLevel }} Risk
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="investment-card-content">
+                                <p class="investment-description">{{ investment.description }}</p>
+
+                                <div class="investment-details">
+                                    <div class="detail-item">
+                                        <strong>Expected Returns:</strong> {{ investment.returns }}
+                                    </div>
+                                    <div class="detail-item">
+                                        <strong>Liquidity:</strong> {{ investment.liquidity }}
+                                    </div>
+                                    <div class="detail-item">
+                                        <strong>Minimum Amount:</strong> {{ investment.minAmount }}
+                                    </div>
+                                    <div class="detail-item">
+                                        <strong>Risk Level:</strong> {{ investment.riskLevel }}
+                                    </div>
+                                </div>
+
+                                <clr-accordion>
+                                    <clr-accordion-panel>
+                                        <clr-accordion-title>
+                                            <clr-icon shape="users" size="16"></clr-icon>
+                                            Who Should Invest
+                                        </clr-accordion-title>
+                                        <clr-accordion-content>
+                                            <ul class="suitability-list">
+                                                <li *ngFor="let suit of investment.suitability">{{ suit }}</li>
+                                            </ul>
+                                        </clr-accordion-content>
+                                    </clr-accordion-panel>
+
+                                    <clr-accordion-panel>
+                                        <clr-accordion-title>
+                                            <clr-icon shape="file-group" size="16"></clr-icon>
+                                            Required Documents
+                                        </clr-accordion-title>
+                                        <clr-accordion-content>
+                                            <ul class="documents-list">
+                                                <li *ngFor="let doc of investment.documents">{{ doc }}</li>
+                                            </ul>
+                                        </clr-accordion-content>
+                                    </clr-accordion-panel>
+
+                                    <clr-accordion-panel>
+                                        <clr-accordion-title>
+                                            <clr-icon shape="star" size="16"></clr-icon>
+                                            Key Features
+                                        </clr-accordion-title>
+                                        <clr-accordion-content>
+                                            <ul class="features-list">
+                                                <li *ngFor="let feature of investment.keyFeatures">{{ feature }}</li>
+                                            </ul>
+                                        </clr-accordion-content>
+                                    </clr-accordion-panel>
+
+                                    <clr-accordion-panel *ngIf="investment.taxBenefits">
+                                        <clr-accordion-title>
+                                            <clr-icon shape="calculator" size="16"></clr-icon>
+                                            Tax Benefits
+                                        </clr-accordion-title>
+                                        <clr-accordion-content>
+                                            <ul class="tax-benefits-list">
+                                                <li *ngFor="let benefit of investment.taxBenefits">{{ benefit }}</li>
+                                            </ul>
+                                        </clr-accordion-content>
+                                    </clr-accordion-panel>
+                                </clr-accordion>
+                            </div>
+                        </div>
+                    </div>
+                </clr-tab-content>
+            </clr-tab>
+
+            <clr-tab>
+                <button clrTabLink id="comparison-tab">
+                    <clr-icon shape="balance"></clr-icon>
+                    Investment Comparison
+                </button>
+                <clr-tab-content id="comparison-content" *clrIfActive>
+                    <div class="comparison-section">
+                        <clr-alert [clrAlertClosable]="false" clrAlertType="warning" class="comparison-note">
+                            <clr-alert-item>
+                                <span class="alert-text">
+                                    <strong>Note:</strong> Returns are indicative and based on historical performance.
+                                    Past performance doesn't guarantee future results.
+                                </span>
+                            </clr-alert-item>
+                        </clr-alert>
+
+                        <clr-datagrid class="comparison-table">
+                            <clr-dg-column>Investment Type</clr-dg-column>
+                            <clr-dg-column>Expected Returns</clr-dg-column>
+                            <clr-dg-column>Risk Level</clr-dg-column>
+                            <clr-dg-column>Liquidity</clr-dg-column>
+                            <clr-dg-column>Tax Benefits</clr-dg-column>
+
+                            <clr-dg-row *ngFor="let comparison of investmentComparisons">
+                                <clr-dg-cell>{{ comparison.investmentType }}</clr-dg-cell>
+                                <clr-dg-cell>{{ comparison.returns }}</clr-dg-cell>
+                                <clr-dg-cell>
+                                    <span class="risk-badge" [ngClass]="'risk-' + comparison.risk.toLowerCase()">
+                                        {{ comparison.risk }}
+                                    </span>
+                                </clr-dg-cell>
+                                <clr-dg-cell>{{ comparison.liquidity }}</clr-dg-cell>
+                                <clr-dg-cell>{{ comparison.taxBenefit }}</clr-dg-cell>
+                            </clr-dg-row>
+                        </clr-datagrid>
+                    </div>
+                </clr-tab-content>
+            </clr-tab>
+
+            <clr-tab>
+                <button clrTabLink id="sip-calculator-tab">
+                    <clr-icon shape="calculator"></clr-icon>
+                    SIP Calculator
+                </button>
+                <clr-tab-content id="sip-calculator-content" *clrIfActive>
+                    <div class="calculator-section">
+
+                        <div class="calculator-container">
+                            <div class="calculator-inputs">
+                                <div class="input-group">
+                                    <label for="monthlyInvestment">Monthly Investment Amount (₹)</label>
+                                    <input type="number" id="monthlyInvestment" class="form-control"
+                                        [(ngModel)]="monthlyInvestment" (input)="calculateSIP()"
+                                        placeholder="Enter monthly SIP amount" min="500">
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="expectedReturn">Expected Annual Return (%)</label>
+                                    <input type="number" id="expectedReturn" class="form-control"
+                                        [(ngModel)]="expectedReturn" (input)="calculateSIP()"
+                                        placeholder="Enter expected return" min="1" max="30" step="0.1">
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="investmentPeriod">Investment Period (Years)</label>
+                                    <input type="number" id="investmentPeriod" class="form-control"
+                                        [(ngModel)]="investmentPeriod" (input)="calculateSIP()"
+                                        placeholder="Enter investment period" min="1" max="50">
+                                </div>
+                            </div>
+
+                            <div class="calculator-results">
+                                <div class="result-card">
+                                    <h4>Investment Summary</h4>
+                                    <div class="result-item">
+                                        <span class="result-label">Total Investment:</span>
+                                        <span class="result-value">₹{{ totalInvestment | number:'1.0-0' }}</span>
+                                    </div>
+                                    <div class="result-item">
+                                        <span class="result-label">Expected Amount:</span>
+                                        <span class="result-value primary">₹{{ expectedAmount | number:'1.0-0' }}</span>
+                                    </div>
+                                    <div class="result-item">
+                                        <span class="result-label">Wealth Gained:</span>
+                                        <span class="result-value success">₹{{ wealthGained | number:'1.0-0' }}</span>
+                                    </div>
+                                </div>
+
+                                <clr-alert [clrAlertClosable]="false" clrAlertType="info" *ngIf="expectedAmount > 0">
+                                    <clr-alert-item>
+                                        <span class="alert-text">
+                                            <strong>Power of Compounding:</strong> Your ₹{{ monthlyInvestment |
+                                            number:'1.0-0' }}/month
+                                            investment can grow to ₹{{ expectedAmount | number:'1.0-0' }} in {{
+                                            investmentPeriod }} years!
+                                        </span>
+                                    </clr-alert-item>
+                                </clr-alert>
+                            </div>
+                        </div>
+                    </div>
+                </clr-tab-content>
+            </clr-tab>
+
+            <clr-tab>
+                <button clrTabLink id="beginner-guide-tab">
+                    <clr-icon shape="book"></clr-icon>
+                    Beginner's Guide
+                </button>
+                <clr-tab-content id="beginner-guide-content" *clrIfActive>
+                    <div class="guide-section">
+                        <clr-alert [clrAlertClosable]="false" clrAlertType="success" class="final-tip">
+                            <clr-alert-item>
+                                <span class="alert-text">
+                                    <strong>Success Mantra:</strong> Start early, stay consistent, think long-term.
+                                    Even ₹500/month can create significant wealth over 20 years!
+                                </span>
+                            </clr-alert-item>
+                        </clr-alert>
+                        <div class="steps-container">
+                            <div class="step-card">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h4>Complete Your KYC</h4>
+                                    <p>Get your PAN Card, Aadhaar, and complete KYC with any AMC or broker. This is
+                                        mandatory for all investments.</p>
+                                </div>
+                            </div>
+
+                            <div class="step-card">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h4>Build Emergency Fund</h4>
+                                    <p>Save 6-12 months of expenses in liquid funds or savings account before starting
+                                        investments.</p>
+                                </div>
+                            </div>
+
+                            <div class="step-card">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <h4>Start with SIP</h4>
+                                    <p>Begin with ₹1,000-2,000 monthly SIP in diversified equity mutual funds for
+                                        long-term wealth creation.</p>
+                                </div>
+                            </div>
+
+                            <div class="step-card">
+                                <div class="step-number">4</div>
+                                <div class="step-content">
+                                    <h4>Tax Planning</h4>
+                                    <p>Invest in ELSS funds for tax saving under Section 80C while building wealth.</p>
+                                </div>
+                            </div>
+
+                            <div class="step-card">
+                                <div class="step-number">5</div>
+                                <div class="step-content">
+                                    <h4>Increase Gradually</h4>
+                                    <p>Increase your SIP amount by 10-15% annually as your income grows.</p>
+                                </div>
+                            </div>
+
+                            <div class="step-card">
+                                <div class="step-number">6</div>
+                                <div class="step-content">
+                                    <h4>Diversify Portfolio</h4>
+                                    <p>Add debt funds, PPF, and other asset classes as your portfolio grows.</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </clr-tab-content>
+            </clr-tab>
+
+            <clr-tab>
+                <button clrTabLink id="expert-tips-tab">
+                    <clr-icon shape="lightbulb"></clr-icon>
+                    Expert Tips
+                </button>
+                <clr-tab-content id="expert-tips-content" *clrIfActive>
+                    <div class="tips-section">
+                        <clr-alert [clrAlertClosable]="false" clrAlertType="warning" class="final-tip">
+                            <clr-alert-item>
+                                <span class="alert-text">
+                                    <strong>Disclaimer:</strong> Investments are subject to market risks. Please read
+                                    all
+                                    scheme documents carefully before investing. Consider your risk tolerance and
+                                    financial goals.
+                                </span>
+                            </clr-alert-item>
+                        </clr-alert>
+                        <div class="tips-grid">
+                            <div class="tip-card" *ngFor="let tip of expertTips; let i = index">
+                                <div class="tip-number">{{ i + 1 }}</div>
+                                <div class="tip-content">
+                                    <h4>{{ tip.title }}</h4>
+                                    <p>{{ tip.description }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </clr-tab-content>
+            </clr-tab>
+        </clr-tabs>
+    </div>
+</div>
+
+<!-- Test Knowledge Modal -->
+<clr-modal [(clrModalOpen)]="showTestModal" [clrModalClosable]="false">
+    <h3 class="modal-title">Investment Knowledge Test</h3>
+    <div class="modal-body">
+        <div *ngIf="!showQuizResult">
+            <p class="question-info">Question {{ currentQuestionIndex + 1 }} of {{ quizQuestions.length }}</p>
+            <h4>{{ quizQuestions[currentQuestionIndex].question }}</h4>
+
+            <div class="quiz-options">
+                <label *ngFor="let option of quizQuestions[currentQuestionIndex].options; let i = index"
+                    class="radio-option">
+                    <input type="radio" [value]="i" [(ngModel)]="selectedAnswer" name="answer">
+                    {{ option }}
+                </label>
+            </div>
+        </div>
+
+        <div *ngIf="showQuizResult" class="quiz-result">
+            <h4>Quiz Completed! 🎉</h4>
+            <p class="score">Your Score: {{ quizScore }} / {{ quizQuestions.length }}</p>
+
+            <div *ngIf="quizScore >= 4" class="result-message success">
+                <p><strong>Excellent!</strong> You have a good understanding of investment basics.
+                    Keep learning and start your investment journey!</p>
+            </div>
+
+            <div *ngIf="quizScore >= 2 && quizScore < 4" class="result-message warning">
+                <p><strong>Good effort!</strong> You have basic knowledge but should learn more
+                    before making investment decisions.</p>
+            </div>
+
+            <div *ngIf="quizScore < 2" class="result-message danger">
+                <p><strong>Keep Learning!</strong> Consider reading more about investments or
+                    consulting a financial advisor before investing.</p>
+            </div>
+
+            <div class="explanation">
+                <h5>Last Answer Explanation:</h5>
+                <p>{{ quizQuestions[currentQuestionIndex].explanation }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button *ngIf="!showQuizResult" class="btn btn-primary" (click)="submitAnswer()"
+            [disabled]="selectedAnswer === null">
+            {{ currentQuestionIndex < quizQuestions.length - 1 ? 'Next Question' : 'Finish Quiz' }} </button>
+
+                <button class="btn btn-outline" (click)="closeTestModal()">
+                    {{ showQuizResult ? 'Close' : 'Cancel' }}
+                </button>
+    </div>
+</clr-modal>
+
+<!-- Ask Guru Modal -->
+<clr-modal [(clrModalOpen)]="showAskGuruModal" [clrModalSize]="'lg'">
+    <h3 class="modal-title">Ask Investment Guru 💬</h3>
+    <div class="modal-body">
+        <div class="ask-guru-content">
+            <div class="common-questions">
+                <h5>Popular Questions:</h5>
+                <div class="question-chips">
+                    <button *ngFor="let question of commonQuestions"
+                        class="btn btn-sm btn-outline-primary question-chip" (click)="selectCommonQuestion(question)">
+                        {{ question }}
+                    </button>
+                </div>
+            </div>
+
+            <div class="question-input">
+                <label for="userQuestion">Your Question:</label>
+                <textarea id="userQuestion" class="form-control" [(ngModel)]="userQuestion" rows="3"
+                    placeholder="Type your investment-related question here..."></textarea>
+
+                <button class="btn btn-primary ask-btn" (click)="askGuru()" [disabled]="!userQuestion.trim()">
+                    Ask Guru
+                </button>
+            </div>
+
+            <div class="guru-response" *ngIf="guruResponse">
+                <h5>Guru's Answer:</h5>
+                <div class="response-content" [innerHTML]="guruResponse"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-outline" (click)="closeAskGuruModal()">Close</button>
+    </div>
+</clr-modal>

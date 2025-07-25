@@ -1,0 +1,68 @@
+<div class="wrapper">
+  <div class="login-wrapper">
+    <form class="login" [formGroup]="loginForm" (ngSubmit)="submit()">
+      <section class="title">
+        <h3 class="welcome">Welcome to</h3>
+        Dhan Vidya
+      </section>
+      <div class="login-group">
+        <clr-input-container *ngIf="isSignUpMode">
+          <label>Name</label>
+          <input clrInput type="text" formControlName="name" placeholder="Your Name" />
+        </clr-input-container>
+
+        <clr-input-container *ngIf="isSignUpMode">
+          <label>Contact Number</label>
+          <input
+            clrInput
+            type="text"
+            formControlName="contactNumber"
+            placeholder="Your Contact Number"
+          />
+        </clr-input-container>
+
+        <clr-input-container>
+          <label>Email</label>
+          <input clrInput type="email" formControlName="email" placeholder="Email" />
+        </clr-input-container>
+
+        <clr-password-container *ngIf="!isSignUpMode">
+          <label>Password</label>
+          <input clrPassword type="password" formControlName="password" placeholder="Password" />
+        </clr-password-container>
+
+        <clr-password-container *ngIf="isSignUpMode">
+          <label>New Password</label>
+          <input clrPassword type="password" formControlName="password" placeholder="Password" />
+        </clr-password-container>
+
+        <clr-password-container *ngIf="isSignUpMode">
+          <label>Confirm Password</label>
+          <input
+            clrPassword
+            type="password"
+            formControlName="confirmPassword"
+            placeholder="Password"
+          />
+        </clr-password-container>
+
+        <clr-checkbox-container *ngIf="isSignUpMode">
+          <clr-checkbox-wrapper>
+            <input type="checkbox" clrCheckbox value="true" formControlName="subscription" />
+            <label>Subscribe to WhatsApp Newsletters</label>
+          </clr-checkbox-wrapper>
+        </clr-checkbox-container>
+
+        <div class="error active" *ngIf="error">{{ error }}</div>
+
+        <button class="btn btn-primary" type="submit">
+          {{ isSignUpMode ? 'Sign Up' : 'Log In' }}
+        </button>
+
+        <button class="btn btn-link" type="button" (click)="toggleMode()">
+          {{ isSignUpMode ? 'Already have an account? Log in' : 'New user? Sign up' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

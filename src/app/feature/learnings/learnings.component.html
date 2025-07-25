@@ -1,0 +1,30 @@
+<div class="container">
+  <clr-combobox-container>
+    <label>Select Language</label>
+    <clr-combobox [(ngModel)]="selection" name="myState" required>
+      <div *clrOptionSelected="let selected">
+        {{ selected?.label }}
+      </div>
+      <clr-options>
+        <clr-option
+          *clrOptionItems="let language of languages; field: 'label'"
+          [clrValue]="language"
+        >
+          {{ language.label }}
+        </clr-option>
+      </clr-options>
+    </clr-combobox>
+  </clr-combobox-container>
+  <div *ngFor="let videos of learningData[selection.value]; index as i">
+    <div class="clr-row" *ngIf="i % 3 == 0">
+      <div class="clr-col-lg-4" *ngFor="let idx of [0, 1, 2]">
+        <app-learning-card
+          *ngIf="idx + i < learningData[selection.value].length"
+          [cardHeader]="learningData[selection.value][idx + i].title"
+          [cardMediaId]="learningData[selection.value][idx + i].id"
+          [cardText]="learningData[selection.value][idx + i].description"
+        ></app-learning-card>
+      </div>
+    </div>
+  </div>
+</div>

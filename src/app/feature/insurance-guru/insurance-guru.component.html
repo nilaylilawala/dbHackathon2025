@@ -1,0 +1,205 @@
+    <div class="content-container">
+      <div class="content-area">
+        <!-- Header Section -->
+        <div class="header-section">
+            <h1>👨‍👨‍👧‍👦 Insurance Guru - Your Protection Partner</h1>
+            <div class="action-buttons">
+                <button class="btn btn-outline" (click)="openTestKnowledge()">
+                    🧠 Test Your Knowledge
+                </button>
+                <button class="btn btn-primary" (click)="openAskGuru()">
+                    💬 Ask Guru
+                </button>
+            </div>
+        </div>
+
+        <!-- What is Insurance Alert -->
+        <clr-alert [clrAlertClosable]="false" clrAlertType="info" class="insurance-intro">
+          <clr-alert-item>
+            <span class="alert-text">
+              <strong>💡 What is Insurance?</strong> Insurance is financial protection that helps you or your family recover from losses like accidents, illness, or damage by compensating with money. You pay a small amount regularly (premium) to the insurance company.
+            </span>
+          </clr-alert-item>
+        </clr-alert>
+
+        <!-- Navigation Tabs -->
+        <clr-tabs>
+          <clr-tab>
+            <button clrTabLink id="insurance-types-tab">
+              <clr-icon shape="library"></clr-icon>
+              Insurance Types
+            </button>
+            <clr-tab-content id="insurance-types-content" *clrIfActive>
+              
+              <!-- Insurance Types Grid -->
+              <div class="insurance-grid">
+                <div *ngFor="let insurance of insuranceTypes" class="insurance-card" [style.border-left-color]="insurance.color">
+                  <div class="insurance-card-header" [style.background-color]="insurance.color">
+                    <clr-icon [attr.shape]="insurance.icon" size="24" [style.color]="insurance.color"></clr-icon>
+                    <h3 [style.color]="'white'">{{ insurance.name }}</h3>
+                  </div>
+                  
+                  <div class="insurance-card-content">
+                    <div class="insurance-overview">
+                      <p class="insurance-description">{{ insurance.description }}</p>
+                      <div class="covers-goal">
+                        <div class="covers-item">
+                          <strong>Covers:</strong> {{ insurance.covers }}
+                        </div>
+                        <div class="goal-item">
+                          <strong>Goal:</strong> {{ insurance.goal }}
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <clr-accordion>
+                      <!-- Subtypes if available -->
+                      <clr-accordion-panel *ngIf="insurance.subtypes && insurance.subtypes.length > 0">
+                        <clr-accordion-title>
+                          <clr-icon shape="tree-view" size="16"></clr-icon>
+                          Types & Options
+                        </clr-accordion-title>
+                        <clr-accordion-content>
+                          <div class="subtypes-list">
+                            <div *ngFor="let subtype of insurance.subtypes" class="subtype-item">
+                              <h5>{{ subtype.name }}:</h5>
+                              <p>{{ subtype.description }}</p>
+                              <ul class="subtype-features">
+                                <li *ngFor="let feature of subtype.features">{{ feature }}</li>
+                              </ul>
+                            </div>
+                          </div>
+                        </clr-accordion-content>
+                      </clr-accordion-panel>
+                      
+                      <clr-accordion-panel>
+                        <clr-accordion-title>
+                          <clr-icon shape="user" size="16"></clr-icon>
+                          Eligibility & Documents
+                        </clr-accordion-title>
+                        <clr-accordion-content>
+                          <div class="eligibility-info">
+                            <div class="age-eligibility">
+                              <strong>Age Eligibility:</strong> {{ insurance.ageEligibility }}
+                            </div>
+                            <div class="documents-required">
+                              <strong>Documents Required:</strong>
+                              <ul class="documents-list">
+                                <li *ngFor="let doc of insurance.documents">{{ doc }}</li>
+                              </ul>
+                            </div>
+                          </div>
+                        </clr-accordion-content>
+                      </clr-accordion-panel>
+                      
+                      <clr-accordion-panel>
+                        <clr-accordion-title>
+                          <clr-icon shape="star" size="16"></clr-icon>
+                          Key Features
+                        </clr-accordion-title>
+                        <clr-accordion-content>
+                          <ul class="features-list">
+                            <li *ngFor="let feature of insurance.keyFeatures">{{ feature }}</li>
+                          </ul>
+                        </clr-accordion-content>
+                      </clr-accordion-panel>
+                      
+                      <clr-accordion-panel *ngIf="insurance.benefits">
+                        <clr-accordion-title>
+                          <clr-icon shape="thumbs-up" size="16"></clr-icon>
+                          Benefits
+                        </clr-accordion-title>
+                        <clr-accordion-content>
+                          <ul class="benefits-list">
+                            <li *ngFor="let benefit of insurance.benefits">{{ benefit }}</li>
+                          </ul>
+                        </clr-accordion-content>
+                      </clr-accordion-panel>
+                    </clr-accordion>
+                  </div>
+                </div>
+              </div>
+            </clr-tab-content>
+          </clr-tab>
+
+          <clr-tab>
+            <button clrTabLink id="terms-tab">
+              <clr-icon shape="book"></clr-icon>
+              Insurance Terms
+            </button>
+            <clr-tab-content id="terms-content" *clrIfActive>
+              <div class="terms-section">
+                
+                <div class="terms-grid">
+                  <div *ngFor="let term of insuranceTerms" class="term-card">
+                    <div class="term-icon">
+                      <clr-icon [attr.shape]="term.icon" size="24"></clr-icon>
+                    </div>
+                    <div class="term-content">
+                      <h4>{{ term.term }}</h4>
+                      <p>{{ term.definition }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </clr-tab-content>
+          </clr-tab>
+
+          <clr-tab>
+            <button clrTabLink id="eligibility-docs-tab">
+              <clr-icon shape="file-group"></clr-icon>
+              Eligibility & Documents
+            </button>
+            <clr-tab-content id="eligibility-docs-content" *clrIfActive>
+              <div class="eligibility-section">
+                
+                <clr-datagrid class="eligibility-table">
+                  <clr-dg-column>Insurance Type</clr-dg-column>
+                  <clr-dg-column>Age/Eligibility</clr-dg-column>
+                  <clr-dg-column>Documents Required</clr-dg-column>
+                  
+                  <clr-dg-row *ngFor="let eligibility of eligibilityData">
+                    <clr-dg-cell>{{ eligibility.insuranceType }}</clr-dg-cell>
+                    <clr-dg-cell>{{ eligibility.ageEligibility }}</clr-dg-cell>
+                    <clr-dg-cell>
+                      <ul class="doc-list">
+                        <li *ngFor="let doc of eligibility.documentsRequired">{{ doc }}</li>
+                      </ul>
+                    </clr-dg-cell>
+                  </clr-dg-row>
+                </clr-datagrid>
+              </div>
+            </clr-tab-content>
+          </clr-tab>
+
+          <clr-tab>
+            <button clrTabLink id="tips-tab">
+              <clr-icon shape="lightbulb"></clr-icon>
+              Expert Tips
+            </button>
+            <clr-tab-content id="tips-content" *clrIfActive>
+              <div class="tips-section">
+                <clr-alert [clrAlertClosable]="false" clrAlertType="success" class="final-tip">
+                    <clr-alert-item>
+                      <span class="alert-text">
+                        <strong>Remember:</strong> Insurance is not an investment, it's protection. Buy insurance to protect, invest separately to grow wealth.
+                      </span>
+                    </clr-alert-item>
+                  </clr-alert>
+                <div class="tips-grid">
+                  <div class="tip-card" *ngFor="let tip of expertTips; let i = index">
+                    <div class="tip-number">{{ i + 1 }}</div>
+                    <div class="tip-content">
+                      <h4>{{ tip.title }}</h4>
+                      <p>{{ tip.description }}</p>
+                    </div>
+                  </div>
+                </div>
+                
+                
+              </div>
+            </clr-tab-content>
+          </clr-tab>
+        </clr-tabs>
+      </div>
+    </div>
