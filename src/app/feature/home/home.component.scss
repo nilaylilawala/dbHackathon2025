@@ -1,7 +1,17 @@
-#imageBg{
-    width: 100vw;
-    height: 91.4vh;
-    background-image: url(../../../assets/bg.jpg);
-    background-size: cover;
+#imageBg {
+  width: 100vw;
+  height: 92vh;
+  background-image: url(../../../assets/bg.jpg);
+  background-size: cover;
 }
 
+.heading {
+  margin-top: 200px;
+  padding: 30px;
+  font-size: 90px;
+  color: darkslategrey;
+}
+
+.custom {
+    color: rgb(64, 83, 83);
+}
