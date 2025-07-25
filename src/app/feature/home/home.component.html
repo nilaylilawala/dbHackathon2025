@@ -1,11 +1,20 @@
 <div id="imageBg">
   <div class="container">
-    <h1 style="margin-top: 180px; margin-left: 150px;">
+    <h1 style="margin-top: 60px; margin-left: 150px">
       Changing the way India invests
+      <!-- <br /> -->
+      "no matter <strong>who you are"</strong>,
       <br />
-      No matter <strong>who you are</strong>,
-      <br />
-      We can take you from where you are towards financial Literacy!
+      We can take you towards financial awareness!
     </h1>
+    <carousel [interval]="myInterval" [(activeSlide)]="activeSlideIndex">
+      <slide *ngFor="let slide of slides; let index = index">
+        <img [src]="slide.image" alt="image slide" style="border-radius: 5%; box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2); margin-left: 20em; margin-top: 4em; display: block; width: 50%; height: 350px; opacity: 80%;" />
+
+        <div class="carousel-caption">
+          <!-- <h2 style="color: antiquewhite; font-weight: 500;">{{ slide.text }}</h2> -->
+        </div>
+      </slide>
+    </carousel>
   </div>
 </div>
