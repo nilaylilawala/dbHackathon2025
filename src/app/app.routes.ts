@@ -57,6 +57,12 @@ export const appRoutes: Routes = [
       import('./feature/learnings/learnings.component').then((m) => m.LearningsComponent),
   },
   {
+    path: 'ask-guru',
+    pathMatch: 'full',
+    loadComponent: () =>
+      import('./feature/ask-guru/ask-guru.component').then((m) => m.AskGuruComponent),
+  },
+  {
     path: '',
     component: AppComponent,
     children: [

@@ -3,8 +3,9 @@
     <span class="title"><cds-icon shape="dollar-bill"></cds-icon>Dhan Vidya</span>
   </div>
   <div class="header-nav">
-    <a routerLink="/ai-finance-guru" class="nav-link nav-text" *ngIf="this.isLoggedIn"> AI Finance Guru </a>
+    <a routerLink="/ai-finance-guru" class="nav-link nav-text"> AI Finance Guru </a>
     <a routerLink="/learnings" class="nav-link nav-text"> Financial Literacy </a>
+    <a routerLink="/ask-guru" class="nav-link nav-text"> Ask Guru </a>
   </div>
   <div class="header-actions">
     <a routerLink="/login" class="nav-link nav-text" *ngIf="!(user$ | async)"> Login / Sign Up</a>
